@@ -1,15 +1,39 @@
-# What is this?
+# Tracecat Starter Kit
 
-The github.dev web-based editor is a lightweight editing experience that runs entirely in your browser. You can navigate files and source code repositories from GitHub, and make and commit code changes.
+Click on `Use this template` to copy Tracecat's custom integrations starter kit.
 
-There are two ways to go directly to a VS Code environment in your browser and start coding:
+This starter kit contains:
+- `pyproject.toml` config file
+- Example Python UDFs (user defined functions) in `mapping.py` and `greetings.py`
+- An example Action Template in `custom_actions/templates/power_of_three.yml`.
 
-* Press the . key on any repository or pull request.
-* Swap `.com` with `.dev` in the URL. For example, this repo https://github.com/github/dev becomes http://github.dev/github/dev
+## Development
 
-Preview the gif below to get a quick demo of github.dev in action.
+> [!IMPORTANT]
+> Check out the tutorial on building and syncing custom integrations in our [docs here](https://docs.tracecat.com/tutorials/custom-integrations).
 
-![github dev](https://user-images.githubusercontent.com/856858/130119109-4769f2d7-9027-4bc4-a38c-10f297499e8f.gif)
+> [!NOTE]
+> When setting your git URL, the correct scheme is: `git+ssh://git@github.com/<username>/<repo>.git` (notice the "/<username>" not ":<username>")
 
-# Why?
-It’s a quick way to edit and navigate code. It's especially useful if you want to edit multiple files at a time or take advantage of all the powerful code editing features of Visual Studio Code when making a quick change. For more information, see our [documentation](https://github.co/codespaces-editor-help).
+**Note:**
+- You can safely delete example Python integrations files and templates under `custom_actions/`
+- **Do not** remove `pyproject.toml`. This is required for your Tracecat instance to install and run your custom integrations.
+- You can add 3rd party `pip` packages (e.g. `psycopg==3.2.4`) in the `pyproject.toml` file under [`project.dependencies` here](https://github.com/TracecatHQ/custom-integrations-starter-kit/blob/main/pyproject.toml#L11).
+- The `dev` dependencies [line](https://github.com/TracecatHQ/custom-integrations-starter-kit/blob/main/pyproject.toml#L26) in `pyproject.toml` installs the `tracecat_registry` package. This allows you to test your Python functions locally and also enables linting.
+
+> [!TIP]
+> We recommend following Tracecat's open source [integrations](https://github.com/TracecatHQ/tracecat/tree/main/registry/tracecat_registry) for inspiration and guidance.
+
+### Renaming the package
+If you want to rename `custom_actions` to `<your_registry_name>`, you must:
+- Pick a package name that is in snakecase
+- Rename the `custom_actions` directory to `<your_registry_name>`
+- Change every `custom_actions` directory name in `pyproject.toml` to `<your_registry_name>`   
+
+For example:
+
+```bash
+cd custom-integrations-starter-kit
+mv custom_actions my_custom_integrations
+sed -i 's/custom_actions/my_custom_integrations/g' pyproject.toml
+``` 
